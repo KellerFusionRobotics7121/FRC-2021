@@ -161,5 +161,7 @@ public class Robot extends TimedRobot {
          * this so we can apply + to both sides when moving forward. DO NOT CHANGE
          */
         _diffDrive.setRightSideInverted(false);
+        //this is a test
+        
     }
 }
