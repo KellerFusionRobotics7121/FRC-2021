@@ -42,6 +42,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 import frc.robot.sim.PhysicsSim;
 
+
 public class Robot extends TimedRobot {
     /*
      * --- [1] Update CAN Device IDs and use WPI_VictorSPX where necessary ------
@@ -161,7 +162,5 @@ public class Robot extends TimedRobot {
          * this so we can apply + to both sides when moving forward. DO NOT CHANGE
          */
         _diffDrive.setRightSideInverted(false);
-        //this is a test
-        
     }
 }
