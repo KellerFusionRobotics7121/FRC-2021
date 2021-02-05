@@ -220,11 +220,11 @@ if (btn6) //conveyor
 {
 	conveyor.set(ControlMode.PercentOutput,-0.5);
 }
-
 else
 {
 	conveyor.set(ControlMode.PercentOutput,0.0);
 }
+
 if (btn7) //intake out
 {
 	intake.set(ControlMode.PercentOutput,-0.5);
