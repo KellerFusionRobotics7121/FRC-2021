@@ -56,7 +56,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Joystick;
 
-import frc.robot.Auto.;
+import frc.robot.Auto;
 
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;

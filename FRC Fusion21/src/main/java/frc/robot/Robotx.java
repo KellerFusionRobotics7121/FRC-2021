@@ -117,7 +117,7 @@ public class Robotx extends TimedRobot {
         _rghtFront.getFaults(_faults_R);
 
         if (_faults_L.SensorOutOfPhase) {
-            work += " L sensor is out of phase";
+          .  work += " L sensor is out of phase";
         }
         if (_faults_R.SensorOutOfPhase) {
             work += " R sensor is out of phase";
