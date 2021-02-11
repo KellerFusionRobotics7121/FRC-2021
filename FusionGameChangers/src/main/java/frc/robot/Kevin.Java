@@ -45,7 +45,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 import frc.robot.sim.PhysicsSim;
 
-public class Robot extends TimedRobot {
+public class Kevin extends TimedRobot {
     /*
      * --- [1] Update CAN Device IDs and use WPI_VictorSPX where necessary ------
      */
