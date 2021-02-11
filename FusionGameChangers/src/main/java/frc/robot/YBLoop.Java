@@ -74,37 +74,20 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class YBLoop extends TimedRobot {
     /** Hardware */
-    /*
-    TalonFX _rghtFront = new TalonFX(12);  //right front
-    TalonFX _lftFront = new TalonFX(15);
-    TalonFX _leftFollower = new TalonFX(14);
-    TalonFX _rightFollower = new TalonFX(13);
-    */      
-    
     WPI_TalonFX _rghtFront = new WPI_TalonFX(12);
     WPI_TalonFX _rghtFollower = new WPI_TalonFX(13);
     WPI_TalonFX _lftFront = new WPI_TalonFX(15);
     WPI_TalonFX _lftFollower = new WPI_TalonFX(14);
-    
     Joystick _joy = new Joystick(0);
-
-
-  
-
     //DifferentialDrive m_robotDrive = new DifferentialDrive(_lftFront,_rghtFront);
-
     //differential drive causing the autonomous to be glitchy
-    
     /** Used to create string thoughout loop */
     StringBuilder _sb = new StringBuilder();
     int _loops = 0;
-    
     /** Track button state for single press event */
     boolean _lastButton1 = false;
-
     /** Save the target position to servo to */
     double targetPositionRotations;
-
     double position = 0;
     double absPosition = 0;
     int stage1Complete= 0;
@@ -156,7 +139,7 @@ if (position<110000)
     }
      else
     {
-        stage1Complete=stage1Complete+1;
+        stage1Complete+=1;
       _rghtFront.set(ControlMode.PercentOutput, 0);
       _lftFront.set(ControlMode.PercentOutput, 0);
       //stageOneComplete= true;
@@ -203,7 +186,7 @@ public void stage2()
     }
     else 
     {
-      stage2Complete=stage2Complete+1;
+      stage2Complete+1;
     _rghtFront.set(ControlMode.PercentOutput, 0);
     _lftFront.set(ControlMode.PercentOutput, 0);
     //stageOneComplete= true;
@@ -225,7 +208,7 @@ public void stage3()  //drive straight
   }
   else
   {
-      stage3Complete=stage3Complete+1;
+      stage3Complete+=1;
     _rghtFront.set(ControlMode.PercentOutput, 0);
     _lftFront.set(ControlMode.PercentOutput, 0);
     //stageOneComplete= true;
@@ -250,7 +233,7 @@ public void stage4()  //left turn
   }
   else 
   {
-    stage4Complete=stage4Complete+1;
+    stage4Complete+=1;
   _rghtFront.set(ControlMode.PercentOutput, 0);
   _lftFront.set(ControlMode.PercentOutput, 0);
   //stageOneComplete= true;
@@ -297,7 +280,7 @@ public void stage6()
     }
     else 
     {
-      stage6Complete=stage6Complete+1;
+      stage6Complete+=1;
     _rghtFront.set(ControlMode.PercentOutput, 0);
     _lftFront.set(ControlMode.PercentOutput, 0);
     //stageOneComplete= true;
@@ -321,7 +304,7 @@ public void stage6()
     }
     else
     {
-        stage7Complete=stage7Complete+1;
+        stage7Complete+=1;
       _rghtFront.set(ControlMode.PercentOutput, 0);
       _lftFront.set(ControlMode.PercentOutput, 0);
       //stageOneComplete= true;
@@ -344,7 +327,7 @@ public void stage6()
     }
     else 
     {
-      stage8Complete=stage8Complete+1;
+      stage8Complete+=1;
     _rghtFront.set(ControlMode.PercentOutput, 0);
     _lftFront.set(ControlMode.PercentOutput, 0);
     //stageOneComplete= true;
@@ -367,7 +350,7 @@ public void stage6()
     }
     else 
     {
-        stage9Complete=stage9Complete+1;
+        stage9Complete+=1;
       _rghtFront.set(ControlMode.PercentOutput, 0);
       _lftFront.set(ControlMode.PercentOutput, 0);
       //stageOneComplete= true;
@@ -398,35 +381,26 @@ if (stage1Complete<5)
 {
         stage1();
 }
-
-
 if ((stage1Complete>4)&&(stage2Complete<5))
 {
         stage2();
 }
-
-
 if ((stage2Complete>4)&&(stage3Complete<5))
 {
         stage3();
 }
-
 if ((stage3Complete>4)&&(stage4Complete<5))
 {
         stage4();
 }
-
-
 if ((stage4Complete>4)&&(stage5Complete<5))
 {
         stage5();
-}
-     
+}    
 if ((stage5Complete>4)&&(stage6Complete<5))
 {
         stage6();
-}
-              
+}     
 if ((stage6Complete>4)&&(stage7Complete<5))
 {
         stage7();
@@ -441,12 +415,8 @@ if ((stage8Complete>4)&&(stage9Complete<5))
 {
         stage9();
 } 
-
 */
-
 }
-
-
     public void robotInit()
     {
         /* Zero integrated sensors on Talons */
@@ -456,7 +426,6 @@ if ((stage8Complete>4)&&(stage9Complete<5))
         /* Factory Default all hardware to prevent unexpected behaviour */
         _rghtFront.configFactoryDefault();
         _lftFront.configFactoryDefault();
-        
         /* Config the sensor used for Primary PID and sensor direction */
         _rghtFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 
                                             Constants.kPIDLoopIdx,
@@ -464,7 +433,6 @@ if ((stage8Complete>4)&&(stage9Complete<5))
         _lftFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 
                                             Constants.kPIDLoopIdx,
                                             Constants.kTimeoutMs);
-
         /* Ensure sensor is positive when output is positive */
         _rghtFront.setSensorPhase(Constants.kSensorPhase);
         _lftFront.setSensorPhase(Constants.kSensorPhase);
@@ -592,13 +560,10 @@ if ((stage8Complete>4)&&(stage9Complete<5))
      */
     public void teleopPeriodic() {
         //commonLoop();
-        
         double forw = (.5*( _joy.getRawAxis(1))); /* positive is forward */
         double turn =   (.5*(_joy.getRawAxis(0))); /* positive is right */
         double leftYstick = _joy.getRawAxis(1);
         double rightXstick = _joy.getRawAxis(0);
-
-        
         /* deadband gamepad 10% */
         if (Math.abs(forw) < 0.10) {
             forw = 0;
@@ -606,12 +571,9 @@ if ((stage8Complete>4)&&(stage9Complete<5))
         if (Math.abs(turn) < 0.10) {
             turn = 0;
         }
-        
         //m_robotDrive.arcadeDrive(forw, turn);
-
         _rghtFront.set(TalonFXControlMode.PercentOutput, forw+turn);
         _lftFront.set(TalonFXControlMode.PercentOutput, -1*(forw-turn));
-    
         _rghtFollower.set(TalonFXControlMode.Follower,12);  //follow right front
         _lftFollower.set(TalonFXControlMode.Follower,15);  //follow left front
     }

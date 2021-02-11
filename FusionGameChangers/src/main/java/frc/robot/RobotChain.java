@@ -201,7 +201,7 @@ public void stage4()  //left turn
   }
   else 
   {
-	stage4Complete=stage4Complete+1;
+	stage4Complete+=1;
   _talon.set(ControlMode.Velocity, 0);
   _leftFront.set(ControlMode.Velocity, 0);
   //stageOneComplete= true;
