@@ -66,7 +66,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
-public class RobotChain extends TimedRobot {
+public class Robot extends TimedRobot {
     /** Hardware */
 	TalonFX _talon = new TalonFX(12);  //right front
 	TalonFX _leftFront = new TalonFX(15);

@@ -82,11 +82,7 @@ public class Multi extends TimedRobot {
 	VictorSPX rightWrist = new VictorSPX(10);
 	VictorSPX leftWrist = new VictorSPX(11);
 
-
 	Joystick _gamepad = new Joystick(0);
-
-
-	
 
 	/** Invert Directions for Left and Right */
 	TalonFXInvertType _leftInvert = TalonFXInvertType.CounterClockwise; //Same as invert = "false"
@@ -104,10 +100,6 @@ public class Multi extends TimedRobot {
 	boolean _firstCall = false;
 	boolean _state = false;
 	double _targetAngle = 0;
-
-
-
-
 
 	/* Code for Multiplatform */
 	public int returnButtonID(Dictionary dict, String str){
@@ -227,38 +219,47 @@ public class Multi extends TimedRobot {
 		//boolean btn9 = _gamepad.getRawButton(9);
 		double intakeValue = _gamepad.getRawAxis(3);
 
-if (btn5)  //shooters
+
+switch(btn5)
 {
-	topShooter.set(ControlMode.PercentOutput,-0.5);
-	bottomShooter.set(ControlMode.PercentOutput,-0.5);
-}
-else
-{
-	topShooter.set(ControlMode.PercentOutput,0.0);
-	bottomShooter.set(ControlMode.PercentOutput,0.0);	
+	case 1:
+		topShooter.set(ControlMode.PercentOutput,-0.5);
+		bottomShooter.set(ControlMode.PercentOutput,-0.5);
+		break;
+	case 0:
+		topShooter.set(ControlMode.PercentOutput,0.0);
+		bottomShooter.set(ControlMode.PercentOutput,0.0);
+		break;
 }
 
-if (btn6) //conveyor
+switch(btn6)
 {
-	conveyor.set(ControlMode.PercentOutput,-0.5);
+	case 1:
+		conveyor.set(ControlMode.PercentOutput,-0.5);
+		break;
+	case 0:
+		conveyor.set(ControlMode.PercentOutput,0.0);
+		break;
 }
 
-else
+switch(btn7)
 {
-	conveyor.set(ControlMode.PercentOutput,0.0);
-}
-if (btn7) //intake out
-{
-	intake.set(ControlMode.PercentOutput,-0.5);
+	case 1:
+		intake.set(ControlMode.PercentOutput,-0.5);
+		break;
+	case 0:
+		intake.set(ControlMode.PercentOutput,0);
+		break;
 }
 
-else if (btn8) //intake in
+switch(btn8)
 {
-	intake.set(ControlMode.PercentOutput,0.5);
-}
-else
-{
-	intake.set(ControlMode.PercentOutput,0.0);
+	case 1:
+		intake.set(ControlMode.PercentOutput,0.5);
+		break;
+	case 0:
+		intake.set(ControlMode.PercentOutput,0);
+		break;
 }
 
 rightWrist.set(ControlMode.PercentOutput,intakeValue);

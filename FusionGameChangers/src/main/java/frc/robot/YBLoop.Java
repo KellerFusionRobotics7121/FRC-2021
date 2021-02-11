@@ -192,9 +192,10 @@ if (position<110000)
 }
 */
 public void stage2()
-{position = _lftFront.getSelectedSensorPosition(0);
-    absPosition = Math.abs(position);
-    //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
+{  
+  position = _lftFront.getSelectedSensorPosition(0);
+  absPosition = Math.abs(position);
+  //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
     if (position<317000)
     {
       _rghtFront.set(ControlMode.PercentOutput, -.25);  //right turn
@@ -236,7 +237,8 @@ public void stage3()  //drive straight
 }
 
 public void stage4()  //left turn
-{position = _lftFront.getSelectedSensorPosition(0);
+{
+  position = _lftFront.getSelectedSensorPosition(0);
   absPosition = Math.abs(position);
  
  
@@ -260,7 +262,8 @@ public void stage4()  //left turn
 }
     
 public void stage5()  //drive straight
-{position = _lftFront.getSelectedSensorPosition(0);
+{
+  position = _lftFront.getSelectedSensorPosition(0);
   absPosition = Math.abs(position);
   //System.out.println(position);
   //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
@@ -306,7 +309,8 @@ public void stage6()
 }
 
  public void stage7()
- {position = _lftFront.getSelectedSensorPosition(0);
+ {
+   position = _lftFront.getSelectedSensorPosition(0);
     absPosition = Math.abs(position);
     //System.out.println(position);
     //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
@@ -329,7 +333,8 @@ public void stage6()
   }
   
   public void stage8()  //right turn
-  {position = _lftFront.getSelectedSensorPosition(0);
+  {
+    position = _lftFront.getSelectedSensorPosition(0);
     absPosition = Math.abs(position);
     //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
     if (position<turnAmount)
@@ -442,10 +447,9 @@ if ((stage8Complete>4)&&(stage9Complete<5))
 }
 
 
-    public void robotInit() {
-        
+    public void robotInit()
+    {
         /* Zero integrated sensors on Talons */
-    
         _rghtFollower.set(TalonFXControlMode.Follower,12);  //follow right front
         _lftFollower.set(TalonFXControlMode.Follower,15);  //follow right front
 
