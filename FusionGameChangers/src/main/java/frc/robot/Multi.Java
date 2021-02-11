@@ -256,12 +256,6 @@ else if (btn8) //intake in
 {
 	intake.set(ControlMode.PercentOutput,0.5);
 }
-/*
-else if(btn9)
-{
-	Auto.a
-}
-*/
 else
 {
 	intake.set(ControlMode.PercentOutput,0.0);
