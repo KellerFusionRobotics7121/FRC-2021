@@ -224,7 +224,7 @@ public void stage5()  //drive straight
   }
   else
   {
-	  stage5Complete=stage5Complete+1;
+	  stage5Complete+=1;
 	_talon.set(ControlMode.Velocity, 0);
 	_leftFront.set(ControlMode.Velocity, 0);
 	//stageOneComplete= true;
@@ -247,7 +247,7 @@ public void stage6()
 	}
 	else 
 	{
-	  stage6Complete=stage6Complete+1;
+	  stage6Complete+=1;
 	_talon.set(ControlMode.Velocity, 0);
 	_leftFront.set(ControlMode.Velocity, 0);
 	//stageOneComplete= true;
@@ -270,7 +270,7 @@ public void stage6()
 	}
 	else
 	{
-		stage7Complete=stage7Complete+1;
+		stage7Complete+=1;
 	  _talon.set(ControlMode.Velocity, 0);
 	  _leftFront.set(ControlMode.Velocity, 0);
 	  //stageOneComplete= true;
@@ -292,7 +292,7 @@ public void stage6()
 	}
 	else 
 	{
-	  stage8Complete=stage8Complete+1;
+	  stage8Complete+=1;
 	_talon.set(ControlMode.Velocity, 0);
 	_leftFront.set(ControlMode.Velocity, 0);
 	//stageOneComplete= true;
@@ -315,7 +315,7 @@ public void stage6()
 	}
 	else 
 	{
-		stage9Complete=stage9Complete+1;
+		stage9Complete+=1;
 	  _talon.set(ControlMode.Velocity, 0);
 	  _leftFront.set(ControlMode.Velocity, 0);
 	  //stageOneComplete= true;
