@@ -68,7 +68,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 
-public class Robot extends TimedRobot {
+public class RobotJr extends TimedRobot {
 	/** Hardware */
 	TalonFX _leftMaster = new TalonFX(15);
 	TalonFX _rightMaster = new TalonFX(12);
