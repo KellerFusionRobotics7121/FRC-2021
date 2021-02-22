@@ -94,7 +94,7 @@ public class Robotx extends TimedRobot {
         }
 
         /* drive robot */
-        _diffDrive.arcadeDrive(forw, turn);
+        _diffDrive.arcadeDrive(forw*.75, turn*.75);
 
         /*
          * [2] Make sure Gamepad Forward is positive for FORWARD, and GZ is positive for
