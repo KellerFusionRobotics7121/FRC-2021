@@ -121,7 +121,8 @@ public class Robot extends TimedRobot {
 	}
 
   public void stage1()  //drive straight
-  {position = _leftFront.getSelectedSensorPosition(0);
+  {
+	position = _leftFront.getSelectedSensorPosition(0);
 	absPosition = Math.abs(position);
 	//System.out.println(position);
 	//currentPositionL = _leftMaster.getSelectedSensorPosition(0);

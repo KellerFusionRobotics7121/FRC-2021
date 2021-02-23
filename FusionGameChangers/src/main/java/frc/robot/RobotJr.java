@@ -204,15 +204,16 @@ public class RobotJr extends TimedRobot {
 		boolean btn9 = _gamepad.getRawButton(9);
 		double intakeValue = _gamepad.getRawAxis(3);
 
-if (btn5)  //shooters
+switch (btn5)  //shooters
 {
-	topShooter.set(ControlMode.PercentOutput,-0.5);
-	bottomShooter.set(ControlMode.PercentOutput,-0.5);
-}
-else
-{
-	topShooter.set(ControlMode.PercentOutput,0.0);
-	bottomShooter.set(ControlMode.PercentOutput,0.0);	
+	case 1:
+		topShooter.set(ControlMode.PercentOutput,-0.5);
+		bottomShooter.set(ControlMode.PercentOutput,-0.5);
+		break;
+	case 0:
+		topShooter.set(ControlMode.PercentOutput,0.0);
+		bottomShooter.set(ControlMode.PercentOutput,0.0);	
+		break;
 }
 
 if (btn6) //conveyor
