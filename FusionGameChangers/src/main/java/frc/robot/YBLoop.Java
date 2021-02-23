@@ -132,26 +132,27 @@ _rghtFront.setNeutralMode(NeutralMode.Brake);
     //absPosition = Math.abs(position);
     //System.out.println(position);
     //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
-if (position<110000)
+    switch (position<110000)
     {
-      _rghtFront.set(ControlMode.PercentOutput, -.25);
-      _lftFront.set(ControlMode.PercentOutput, .25);
-    }
-     else
-    {
+      case 1:
+        _rghtFront.set(ControlMode.PercentOutput, -.25);
+        _lftFront.set(ControlMode.PercentOutput, .25);
+        break;
+      case 0:
         stage1Complete+=1;
-      _rghtFront.set(ControlMode.PercentOutput, 0);
-      _lftFront.set(ControlMode.PercentOutput, 0);
+       _rghtFront.set(ControlMode.PercentOutput, 0);
+       _lftFront.set(ControlMode.PercentOutput, 0);
       //stageOneComplete= true;
-      if (stage1Complete>4)
-        {
-        _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
-        }
+        switch (stage1Complete>4)
+          {
+           case 1:
+             _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+             break;
+          }
+      break;
     }
 
 }
-
-
 /*public void stage2()  //right turn
 {position = _lftFront.getSelectedSensorPosition(0);
   absPosition = Math.abs(position);
@@ -178,44 +179,48 @@ public void stage2()
 {  
   position = _lftFront.getSelectedSensorPosition(0);
   absPosition = Math.abs(position);
-  //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
-    if (position<317000)
     {
-      _rghtFront.set(ControlMode.PercentOutput, -.25);  //right turn
-      _lftFront.set(ControlMode.PercentOutput, .55);
-    }
-    else 
-    {
+      case 1:
+        _rghtFront.set(ControlMode.PercentOutput, -.25);  //right turn
+       _lftFront.set(ControlMode.PercentOutput, .55);
+       break;
+      case 0: 
       stage2Complete+1;
-    _rghtFront.set(ControlMode.PercentOutput, 0);
-    _lftFront.set(ControlMode.PercentOutput, 0);
+      _rghtFront.set(ControlMode.PercentOutput, 0);
+      _lftFront.set(ControlMode.PercentOutput, 0);
     //stageOneComplete= true;
-    if (stage2Complete>4)
+    switch (stage2Complete>4)
       {
-      _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+        case 1:
+          _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+          break;
       }
-  }
+    break;
   }
 public void stage3()  //drive straight
-{position = _lftFront.getSelectedSensorPosition(0);
+{
+  position = _lftFront.getSelectedSensorPosition(0);
   absPosition = Math.abs(position);
   //System.out.println(position);
   //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
-  if (position<110000)
+  switch (position<110000)
   {
-    _rghtFront.set(ControlMode.PercentOutput, -.25);
-    _lftFront.set(ControlMode.PercentOutput, .25);
-  }
-  else
-  {
+    case 1:
+      _rghtFront.set(ControlMode.PercentOutput, -.25);
+      _lftFront.set(ControlMode.PercentOutput, .25);
+      break;
+    case 0:
       stage3Complete+=1;
     _rghtFront.set(ControlMode.PercentOutput, 0);
     _lftFront.set(ControlMode.PercentOutput, 0);
     //stageOneComplete= true;
-    if (stage3Complete>4)
+    switch (stage3Complete>4)
     {
-    _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+      case 1;
+        _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+        break;
     }
+      break;
   }
 }
 
@@ -226,22 +231,25 @@ public void stage4()  //left turn
  
  
   //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
-  if (position<122000)
+  switch (position<122000)
   {
-    _rghtFront.set(ControlMode.PercentOutput, -.55);  //right turn
-    _lftFront.set(ControlMode.PercentOutput, .25);
-  }
-  else 
-  {
-    stage4Complete+=1;
-  _rghtFront.set(ControlMode.PercentOutput, 0);
-  _lftFront.set(ControlMode.PercentOutput, 0);
+    case 1:
+      _rghtFront.set(ControlMode.PercentOutput, -.55);  //right turn
+     _lftFront.set(ControlMode.PercentOutput, .25);
+     break;
+    case 0: 
+      stage4Complete+=1;
+     _rghtFront.set(ControlMode.PercentOutput, 0);
+    _lftFront.set(ControlMode.PercentOutput, 0);
   //stageOneComplete= true;
-  if (stage4Complete>4)
+      switch (stage4Complete>4)
     {
-    _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+      case 1:
+      _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+      break;
     }
-}
+    break;
+  }
 }
     
 public void stage5()  //drive straight
@@ -250,21 +258,24 @@ public void stage5()  //drive straight
   absPosition = Math.abs(position);
   //System.out.println(position);
   //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
-  if (position<77000)
+  switch (position<77000)
   {
+    case 1:
     _rghtFront.set(ControlMode.PercentOutput, -.25);
     _lftFront.set(ControlMode.PercentOutput, .25);
-  }
-  else
-  {
+    break;
+    case 0:
       stage5Complete=stage5Complete+1;
     _rghtFront.set(ControlMode.PercentOutput, 0);
     _lftFront.set(ControlMode.PercentOutput, 0);
     //stageOneComplete= true;
-    if (stage5Complete>4)
+    switch (stage5Complete>4)
     {
-    _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+      case 1:
+        _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+        break;
     }
+    break;
   }
 }
 
@@ -273,21 +284,24 @@ public void stage6()
     position = _lftFront.getSelectedSensorPosition(0);
     absPosition = Math.abs(position);
     //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
-    if (position<94000)
+    switch (position<94000)
     {
+      case 1:
       _rghtFront.set(ControlMode.PercentOutput, -.55);  //right turn
       _lftFront.set(ControlMode.PercentOutput, .25);
-    }
-    else 
-    {
-      stage6Complete+=1;
-    _rghtFront.set(ControlMode.PercentOutput, 0);
-    _lftFront.set(ControlMode.PercentOutput, 0);
+        break;
+      case 0:
+        stage6Complete+=1;
+      _rghtFront.set(ControlMode.PercentOutput, 0);
+      _lftFront.set(ControlMode.PercentOutput, 0);
     //stageOneComplete= true;
-    if (stage6Complete>4)
-      {
-      _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
-      }
+      switch (stage6Complete>4)
+        {
+          case 1:
+            _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+            break;
+        }
+      break;  
   }
 }
 
@@ -297,21 +311,24 @@ public void stage6()
     absPosition = Math.abs(position);
     //System.out.println(position);
     //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
-    if (position<300000)
+    switch (position<300000)
     {
-      _rghtFront.set(ControlMode.PercentOutput, -.25);
-      _lftFront.set(ControlMode.PercentOutput, .25);
-    }
-    else
-    {
+      case 1:
+        _rghtFront.set(ControlMode.PercentOutput, -.25);
+        _lftFront.set(ControlMode.PercentOutput, .25);
+        break;
+      case 0;
         stage7Complete+=1;
-      _rghtFront.set(ControlMode.PercentOutput, 0);
-      _lftFront.set(ControlMode.PercentOutput, 0);
+        _rghtFront.set(ControlMode.PercentOutput, 0);
+        _lftFront.set(ControlMode.PercentOutput, 0);
       //stageOneComplete= true;
-      if (stage7Complete>4)
-      {
-      _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
-      }
+        switch (stage7Complete>4)
+        {
+          case 1:
+          _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+          break;
+        }
+      break;
     }
   }
   
@@ -320,44 +337,51 @@ public void stage6()
     position = _lftFront.getSelectedSensorPosition(0);
     absPosition = Math.abs(position);
     //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
-    if (position<turnAmount)
+    switch (position<turnAmount)
     {
-      _rghtFront.set(ControlMode.PercentOutput, .25);  //right turn
-      _lftFront.set(ControlMode.PercentOutput, .25);
-    }
-    else 
-    {
-      stage8Complete+=1;
-    _rghtFront.set(ControlMode.PercentOutput, 0);
-    _lftFront.set(ControlMode.PercentOutput, 0);
+      case 1:
+        _rghtFront.set(ControlMode.PercentOutput, .25);  //right turn
+        _lftFront.set(ControlMode.PercentOutput, .25);
+        break;
+      case 0:
+        stage8Complete+=1;
+      _rghtFront.set(ControlMode.PercentOutput, 0);
+      _lftFront.set(ControlMode.PercentOutput, 0);
     //stageOneComplete= true;
-    if (stage8Complete>4)
-      {
-      _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
-      }
+      switch (stage8Complete>4)
+        {
+          case 1:
+          _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+          break;
+        }
+      break;
   }
   }
 
   public void stage9()  //drive straight
-  {position = _lftFront.getSelectedSensorPosition(0);
+  {
+    position = _lftFront.getSelectedSensorPosition(0);
     absPosition = Math.abs(position);
     //System.out.println(position);
     //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
-    if (position<160000)
+    switch (position<160000)
     {
-      _rghtFront.set(ControlMode.PercentOutput, -.25);
-      _lftFront.set(ControlMode.PercentOutput, .25);
-    }
-    else 
-    {
+      case 1:
+        _rghtFront.set(ControlMode.PercentOutput, -.25);
+        _lftFront.set(ControlMode.PercentOutput, .25);
+        break;
+      case 0;
         stage9Complete+=1;
       _rghtFront.set(ControlMode.PercentOutput, 0);
       _lftFront.set(ControlMode.PercentOutput, 0);
       //stageOneComplete= true;
-      if (stage9Complete>4)
+      switch (stage9Complete>4)
         {
-        _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+          case 1:
+          _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+          break;
         }
+      break;
     }
 }
 
