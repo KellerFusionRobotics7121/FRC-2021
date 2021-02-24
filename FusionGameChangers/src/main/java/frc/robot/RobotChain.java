@@ -145,7 +145,8 @@ public class Robot extends TimedRobot {
 }
 
 public void stage2()  //right turn
-{position = _leftFront.getSelectedSensorPosition(0);
+{
+	position = _leftFront.getSelectedSensorPosition(0);
   absPosition = Math.abs(position);
   //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
   if (position<turnAmount)

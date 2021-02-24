@@ -72,7 +72,7 @@ import  edu.wpi.first.wpilibj.SpeedController;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 
-public class Robot extends TimedRobot {
+public class YBLoop extends TimedRobot {
     /** Hardware */
     WPI_TalonFX _rghtFront = new WPI_TalonFX(12);
     WPI_TalonFX _rghtFollower = new WPI_TalonFX(13);
