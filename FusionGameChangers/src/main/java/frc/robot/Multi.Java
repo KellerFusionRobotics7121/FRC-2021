@@ -203,7 +203,7 @@ public class Multi extends TimedRobot {
 
 		/*Ok so here you add your values to the button prompts established above*/
 		testMultiPlatformButton.Put("Ethan",5);
-		testMultiPlatformButton.Put("Austin",7);
+		testMultiPlatformButton.Put("Austn",7);
 	}
 	
 	@Override
