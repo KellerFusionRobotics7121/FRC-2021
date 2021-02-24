@@ -325,7 +325,7 @@ public void stage6()
       //stageOneComplete= true;
         switch (stage7Complete>4)
         {
-          case 1:
+          case true:
           _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
           break;
         }
@@ -340,18 +340,18 @@ public void stage6()
     //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
     switch (position<turnAmount)
     {
-      case 1:
+      case true:
         _rghtFront.set(ControlMode.PercentOutput, .25);  //right turn
         _lftFront.set(ControlMode.PercentOutput, .25);
         break;
-      case 0:
+      case false:
         stage8Complete+=1;
       _rghtFront.set(ControlMode.PercentOutput, 0);
       _lftFront.set(ControlMode.PercentOutput, 0);
     //stageOneComplete= true;
       switch (stage8Complete>4)
         {
-          case 1:
+          case true:
           _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
           break;
         }
@@ -367,18 +367,18 @@ public void stage6()
     //currentPositionL = _leftMaster.getSelectedSensorPosition(0);
     switch (position<160000)
     {
-      case 1:
+      case true:
         _rghtFront.set(ControlMode.PercentOutput, -.25);
         _lftFront.set(ControlMode.PercentOutput, .25);
         break;
-      case 0;
+      case false;
         stage9Complete+=1;
       _rghtFront.set(ControlMode.PercentOutput, 0);
       _lftFront.set(ControlMode.PercentOutput, 0);
       //stageOneComplete= true;
       switch (stage9Complete>4)
         {
-          case 1:
+          case true:
           _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
           break;
         }
