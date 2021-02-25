@@ -78,6 +78,7 @@ public class Robotx extends TimedRobot {
     public void teleopPeriodic() {
 
         String work = "";
+        double acceleration;
 
         /* get gamepad stick values */
         double forw = -1 * _joystick.getRawAxis(1); /* positive is forward */
@@ -94,8 +95,13 @@ public class Robotx extends TimedRobot {
         }
 
         /* drive robot */
-        _diffDrive.arcadeDrive(forw*.75, turn*.75);
-
+        for(double i=0,i<=1,i++.3)
+        {
+            i=acceleration;
+            _diffDrive.arcadeDrive(forw*acceleration, turn*acceleration);
+            WaitCommand​(double .05);
+        }
+        _diffDrive.arcadeDrive(forw, turn);
         /*
          * [2] Make sure Gamepad Forward is positive for FORWARD, and GZ is positive for
          * RIGHT
