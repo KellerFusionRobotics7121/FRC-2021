@@ -95,6 +95,7 @@ public class Robotx extends TimedRobot {
         }
 
         /* drive robot */
+        //Acceleration
         for(double i=0,i<=1,i++.01)
         {
             i=acceleration;
@@ -102,6 +103,8 @@ public class Robotx extends TimedRobot {
             WaitCommand​(double .025);
         }
         _diffDrive.arcadeDrive(forw, turn);
+
+
         /*
          * [2] Make sure Gamepad Forward is positive for FORWARD, and GZ is positive for
          * RIGHT
