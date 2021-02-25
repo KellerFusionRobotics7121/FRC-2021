@@ -217,7 +217,7 @@ public void stage3()  //drive straight
     //stageOneComplete= true;
     switch (stage3Complete>4)
     {
-      case true;
+      case true:
         _lftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
         break;
     }

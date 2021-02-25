@@ -706,14 +706,14 @@ else if (direction == 45)
 			bottomShooter.set(ControlMode.PercentOutput,0.0);	
 		}
 		*/
-		if (btn6) //conveyor
+		switch (btn6) //conveyor
 		{
-			conveyor.set(ControlMode.PercentOutput,-0.35);
-		}
-	
-		else
-		{
-			conveyor.set(ControlMode.PercentOutput,0.0);
+            case 1:
+    			conveyor.set(ControlMode.PercentOutput,-0.35);
+                break;
+            case 0:
+    			conveyor.set(ControlMode.PercentOutput,0.0);
+                break;
 		}
 		
 		

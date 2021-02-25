@@ -202,13 +202,16 @@ public class Multi extends TimedRobot {
 		zeroSensors();
 
 		/*Ok so here you add your values to the button prompts established above*/
-		testMultiPlatformButton.Put("Ethan",5);
-		testMultiPlatformButton.Put("Austn",7);
+		testMultiPlatformButton.Put("Ethan",2);
+		testMultiPlatformButton.Put("Austn",3);
 	}
 	
 	@Override
 	public void teleopPeriodic() {
 		/* Gamepad processing */
+		if(_gamepad.getRawButton(testMultiPlatformButton["Ethan"])){
+			System.out.Print("Works uwu");
+		}
 		double forward = -1 * _gamepad.getY();
 		double turn = _gamepad.getX();
 
@@ -265,8 +268,8 @@ switch(btn8)
 rightWrist.set(ControlMode.PercentOutput,intakeValue);
 leftWrist.set(ControlMode.PercentOutput,-intakeValue);
 
-		forward = Deadband(forward);
-		turn = Deadband(turn);
+		forward*25 = Deadband(forward);
+		turn*25 = Deadband(turn);
 	
 		/* Button processing for state toggle and sensor zeroing */
 		getButtons(_currentBtns, _gamepad);
