@@ -42,8 +42,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 import frc.robot.sim.PhysicsSim;
 
-public class Robot extends TimedRobot
-{
+
+public class Robotx extends TimedRobot {
     /*
      * --- [1] Update CAN Device IDs and use WPI_VictorSPX where necessary ------
      */
@@ -59,7 +59,8 @@ public class Robot extends TimedRobot
     Faults _faults_L = new Faults();
     Faults _faults_R = new Faults();
 
-    double speedHalf = 1;    
+    Encoder encoder = new Encoder 
+
 
     @Override
     public void simulationInit() {
@@ -77,14 +78,13 @@ public class Robot extends TimedRobot
     public void teleopPeriodic() {
 
         String work = "";
+        double acceleration;
 
         /* get gamepad stick values */
         double forw = -1 * _joystick.getRawAxis(1); /* positive is forward */
         double turn = +1 * _joystick.getRawAxis(0); /* positive is right */
         boolean btn1 = _joystick.getRawButton(1); /* is button is down, print joystick values */
         boolean btn2 = _joystick.getRawButton(2); /* is button is down, print joystick values */
-        boolean btn3 = _joystick.getRawButton(3); // test to lower speed
-        
 
         /* deadband gamepad 10% */
         if (Math.abs(forw) < 0.10) {
@@ -95,7 +95,14 @@ public class Robot extends TimedRobot
         }
 
         /* drive robot */
-            _diffDrive.arcadeDrive(forw, turn);
+        //Acceleration
+        for(double i=.1,i<=1,i++.01)
+        {
+            i=acceleration;
+            _diffDrive.arcadeDrive(forw*acceleration, turn*acceleration);
+            WaitCommand​(double .025);
+        }
+        _diffDrive.arcadeDrive(forw, turn);
 
 
         /*
@@ -128,18 +135,6 @@ public class Robot extends TimedRobot
         /* print to console if btn1 is held down */
         if (btn1) {
             System.out.println(work);
-        }
-
-        if (btn3)
-        {
-            if(speedHalf==1)
-            {
-                speedHalf =.5;
-            }
-            else
-            {
-                speedHalf=1;
-            }
         }
     }
 
