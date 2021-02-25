@@ -95,11 +95,11 @@ public class Robotx extends TimedRobot {
         }
 
         /* drive robot */
-        for(double i=0,i<=1,i++.3)
+        for(double i=0,i<=1,i++.01)
         {
             i=acceleration;
             _diffDrive.arcadeDrive(forw*acceleration, turn*acceleration);
-            WaitCommand​(double .05);
+            WaitCommand​(double .025);
         }
         _diffDrive.arcadeDrive(forw, turn);
         /*
