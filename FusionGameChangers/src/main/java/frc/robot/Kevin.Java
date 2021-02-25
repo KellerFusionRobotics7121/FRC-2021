@@ -34,28 +34,44 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.Faults;
 import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.SpeedController;
+
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
+import com.ctre.phoenix.motorcontrol.SensorTerm;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
+
+import com.ctre.phoenix.motorcontrol.FollowerType;
+import com.ctre.phoenix.motorcontrol.DemandType;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
+import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
+import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
 import edu.wpi.first.wpilibj.Timer;
 
 import frc.robot.sim.PhysicsSim;
 
-
-public class Kevin extends TimedRobot {
+public class Robot extends TimedRobot {
     /*
-     * --- [1] Update CAN Device IDs and use WPI_VictorSPX where necessary ------
+     * --- [1] Update TalonFX motors ------
      */
-    WPI_TalonSRX _rghtFront = new WPI_TalonSRX(12);
-    WPI_TalonSRX _rghtFollower = new WPI_TalonSRX(13);
-    WPI_TalonSRX _leftFront = new WPI_TalonSRX(15);
-    WPI_TalonSRX _leftFollower = new WPI_TalonSRX(14);
+    TalonFX _rghtFront = new TalonFX(12);  //right front
+	TalonFX _leftFront = new TalonFX(15);
+	TalonFX _leftFollower = new TalonFX(14);
+	TalonFX _rghtFollower = new TalonFX(13);
 
-    DifferentialDrive _diffDrive = new DifferentialDrive(_leftFront, _rghtFront);
 
     Joystick _joystick = new Joystick(0);
     //Button btn8 = new Button(8); 
@@ -64,57 +80,78 @@ public class Kevin extends TimedRobot {
     Faults _faults_L = new Faults();
     Faults _faults_R = new Faults();
 
-    @Override
-    public void simulationInit() {
-        PhysicsSim.getInstance().addTalonSRX(_rghtFront, 0.75, 4000, true);
-        PhysicsSim.getInstance().addTalonSRX(_leftFront, 0.75, 4000, true);
-        PhysicsSim.getInstance().addTalonSRX(_rghtFollower, 0.75, 4000);
-        PhysicsSim.getInstance().addTalonSRX(_leftFollower, 0.75, 4000);
-    }
-    @Override
-    public void simulationPeriodic() {
-        PhysicsSim.getInstance().run();
-    }
+    //Autonomous variables
+    double position = 0;
 
-    /* AUTONOMOUS INITIALIZE */
+
+    /**
+     * AUTONOMOUS INIT
+     */
 
     @Override
     public void autonomousInit(){
 
-        Timer time = new Timer();
-        time.delay(2.0); //Startup timer
+        //Reset Encoder
+        resEnc();
 
         /* NOTE: MOTOR VALUES ARE ON A SCALE BETWEEN 0 AND 1; STOP TO FULL SPEED */
-        Drive(0.5, 0, 5.0, time); //Forward at half speed for 5.0 seconds
-        Drive(0.4, 0.2, 5.0, time); //Forward at .4 speed +-.2 favoring right direction for 5.0 seconds
+        /* REFER TO BELOW DRIVE() METHOD FOR ARGUMENTS */
+        Drive(0.4, 0.4, 15000); 
+        Drive(0.25, 0.55, 15000);//110000
+        System.out.println("finished");
 
-        time.reset();
+
+        //Stop all motors
+        _rghtFront.set(ControlMode.PercentOutput, 0);
+        _leftFront.set(ControlMode.PercentOutput, 0);
     }
 
-    /* AUTONOMOUS SUPPLEMENTARY METHODS */
+    /**
+     * DISABLED INIT (for autonomous ease)
+     */
+
+     @Override
+     public void disabledInit(){
+        resEnc();
+     }
     
     /**
-     * Drive Method
+     * DRIVE METHOD (AUTONOMOUS SUPPLEMENT)
      * double @fore = base speed forward
      * double @tur = adjustment from base speed; tur > 0 = right, tur < 0 = left
-     * double @duration = duration of timer
-     * Timer @timer = timer object being used
+     * double @dur = encoder limit
      */
-    public void Drive(double fore, double tur, double duration, Timer timer){
-        timer.reset();
-        _rghtFront.Set(fore - tur);
-        _leftFront.Set(fore + tur);
-        timer.delay(duration);
+    public void Drive(double right, double left, double dur){
+
+        //Do not proceed until position is past the duration
+        while(Math.abs(position) < dur){
+
+            _rghtFront.set(ControlMode.PercentOutput, right);
+            _leftFront.set(ControlMode.PercentOutput, left);
+
+            //Update the encoder position
+            position = _leftFront.getSelectedSensorPosition(0);
+            System.out.println(position);
+        }
+
+        //Reset Encoder
+        resEnc();
     }
 
-    /* TELE-OPERATION PERIODIC */
+    public void resEnc(){
+        _leftFront.getSensorCollection().setIntegratedSensorPosition(0, Constants.kTimeoutMs);
+        position = _leftFront.getSelectedSensorPosition(0);
+    }
+
+    /**
+     * TELE-OPERATION PERIODIC
+     */
 
     @Override
     public void teleopPeriodic() {
 
         //Initialization
         String work = "";
-        boolean controller = true; //true = Extreme 3D, false = Logitech Dual
         double forw;
         double turn;
         double senstvty;
@@ -131,15 +168,16 @@ public class Kevin extends TimedRobot {
         System.out.println(forw);
 
         /* deadband gamepad 10% */
-        if (Math.abs(forw) < 0.10) {
+        if (Math.abs(forw) < 0.1) {
             forw = 0;
         }
-        if (Math.abs(turn) < 0.10) {
+        if (Math.abs(turn) < 0.1) {
             turn = 0;
         }
 
-        /* drive robot */
-        _diffDrive.arcadeDrive(forw, turn);
+        /* Arcade Drive Control */
+        _rghtFront.set(ControlMode.PercentOutput, (forw - turn));
+        _leftFront.set(ControlMode.PercentOutput, (forw + turn));
 
         /*
          * [2] Make sure Gamepad Forward is positive for FORWARD, and GZ is positive for
@@ -196,18 +234,58 @@ public class Kevin extends TimedRobot {
         _rghtFollower.setInverted(InvertType.FollowMaster);
         _leftFollower.setInverted(InvertType.FollowMaster);
 
+        /* Config the sensor used for Primary PID and sensor direction */
+        _rghtFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 
+                                            Constants.kPIDLoopIdx,
+											Constants.kTimeoutMs);
+		_leftFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 
+                                            Constants.kPIDLoopIdx,
+				                            Constants.kTimeoutMs);
+        
         /*
          * [4] adjust sensor phase so sensor moves positive when Talon LEDs are green
          */
         _rghtFront.setSensorPhase(true);
         _leftFront.setSensorPhase(true);
 
-        /*
-         * WPI drivetrain classes defaultly assume left and right are opposite. call
-         * this so we can apply + to both sides when moving forward. DO NOT CHANGE
-         */
-        _diffDrive.setRightSideInverted(false);
+        /* Config the peak and nominal outputs, 12V means full */
+		_rghtFront.configNominalOutputForward(0);
+		_rghtFront.configNominalOutputReverse(0);
+		_rghtFront.configPeakOutputForward(1);
+		_rghtFront.configPeakOutputReverse(-1);
+		_leftFront.configNominalOutputForward(0);
+		_leftFront.configNominalOutputReverse(0);
+		_leftFront.configPeakOutputForward(1);
+		_leftFront.configPeakOutputReverse(-1);
+
+        /* Config Position Closed Loop gains in slot0, tsypically kF stays zero. */
+		_rghtFront.config_kF(Constants.kPIDLoopIdx, Constants.kGains.kF, Constants.kTimeoutMs);
+		_rghtFront.config_kP(Constants.kPIDLoopIdx, Constants.kGains.kP, Constants.kTimeoutMs);
+		_rghtFront.config_kI(Constants.kPIDLoopIdx, Constants.kGains.kI, Constants.kTimeoutMs);
+		_rghtFront.config_kD(Constants.kPIDLoopIdx, Constants.kGains.kD, Constants.kTimeoutMs);
+
+		_leftFront.config_kF(Constants.kPIDLoopIdx, Constants.kGains.kF, Constants.kTimeoutMs);
+		_leftFront.config_kP(Constants.kPIDLoopIdx, Constants.kGains.kP, Constants.kTimeoutMs);
+		_leftFront.config_kI(Constants.kPIDLoopIdx, Constants.kGains.kI, Constants.kTimeoutMs);
+		_leftFront.config_kD(Constants.kPIDLoopIdx, Constants.kGains.kD, Constants.kTimeoutMs);
+        
+        /**
+		 * Config the allowable closed-loop error, Closed-Loop output will be
+		 * neutral within this range. See Table in Section 17.2.1 for native
+		 * units per rotation.
+		 */
+		_rghtFront.configAllowableClosedloopError(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+		_leftFront.configAllowableClosedloopError(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+
+        /* Config the peak and nominal outputs, 12V means full */
+		_rghtFront.configNominalOutputForward(0, Constants.kTimeoutMs);
+		_rghtFront.configNominalOutputReverse(0, Constants.kTimeoutMs);
+		_rghtFront.configPeakOutputForward(1, Constants.kTimeoutMs);
+		_rghtFront.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+		_leftFront.configNominalOutputForward(0, Constants.kTimeoutMs);
+		_leftFront.configNominalOutputReverse(0, Constants.kTimeoutMs);
+		_leftFront.configPeakOutputForward(1, Constants.kTimeoutMs);
+		_leftFront.configPeakOutputReverse(-1, Constants.kTimeoutMs);
     }
 }
-
 
