@@ -77,7 +77,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 
-public class Robot extends TimedRobot {
+public class YBLoop2 extends TimedRobot {
     /** Hardware */
 	/*
 	TalonFX _rghtFront = new TalonFX(12);  //right front
@@ -706,18 +706,12 @@ else if (direction == 45)
 			bottomShooter.set(ControlMode.PercentOutput,0.0);	
 		}
 		*/
-		switch (btn6) //conveyor
+		if (btn6) //conveyor
 		{
-            case 1:
     			conveyor.set(ControlMode.PercentOutput,-0.35);
-                break;
-            case 0:
-    			conveyor.set(ControlMode.PercentOutput,0.0);
-                break;
+    
 		}
-		
-		
-		if (btn7) //intake out
+		else if (btn7) //intake out
 		{
 			intake.set(ControlMode.PercentOutput,-0.5);
 		}
