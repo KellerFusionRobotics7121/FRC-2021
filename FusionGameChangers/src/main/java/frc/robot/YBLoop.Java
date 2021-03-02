@@ -371,7 +371,7 @@ public void stage6()
         _rghtFront.set(ControlMode.PercentOutput, -.25);
         _lftFront.set(ControlMode.PercentOutput, .25);
         break;
-      case false;
+      case false:
         stage9Complete+=1;
       _rghtFront.set(ControlMode.PercentOutput, 0);
       _lftFront.set(ControlMode.PercentOutput, 0);
