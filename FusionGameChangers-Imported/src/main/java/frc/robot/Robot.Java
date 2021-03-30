@@ -157,15 +157,18 @@ public class Robot extends TimedRobot {
         double senstvty;
 
         /* Extreme 3D Values */
-        senstvty = (-1 * _joystick.getRawAxis(3) + 1) / 2;
+        /*
+        //senstvty = (-1 * _joystick.getRawAxis(3) + 1) / 2;
         forw = -1 * senstvty * _joystick.getRawAxis(1); /* positive is forward */
-        turn = +1 * senstvty * _joystick.getRawAxis(2);
+       // turn = +1 * senstvty * _joystick.getRawAxis(2);
 
         /* Logitech Dual Values */
-        // forw = -1 * (0.5) * _joystick.getRawAxis(1); /* positive is forward */
-        // turn = +1 * (0.5) * _joystick.getRawAxis(0);
+        forw = -1 * (0.5) * _joystick.getRawAxis(1); /* positive is forward */
+        turn = +1 * (0.5) * _joystick.getRawAxis(0);
         
         System.out.println(forw);
+
+        //forw/_joystick.getRawAxis(1);
 
         /* deadband gamepad 10% */
         if (Math.abs(forw) < 0.1) {

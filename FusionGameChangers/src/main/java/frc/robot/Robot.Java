@@ -207,9 +207,11 @@ public class Robot extends TimedRobot {
         }
 
         /* print to console if btn1 is held down */
-        // if (btn1) {
-        //     System.out.println(work);
-        // }
+        if(_joystick.getRawButton(1))
+        {
+            topShooter.set(ControlMode.PercentOutput,-0.5);
+            bottomShooter.set(ControlMode.PercentOutput,-0.5);
+        }
     }
 
     @Override
